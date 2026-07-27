@@ -32,6 +32,9 @@ export default function Home() {
   const [duration, setDuration] = useState<string | null>(null);
   const [reason, setReason] = useState("");
   const [agreed, setAgreed] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [userStopped, setUserStopped] = useState(false);
+  const carouselPaused = isHovering || userStopped;
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -80,14 +83,11 @@ export default function Home() {
             />
           </div>
 
-          <div className={styles.divider} />
-
           <div
             className={styles.question}
             role="radiogroup"
             aria-labelledby="duration-question"
           >
-            <span className={styles.questionNumber}>שאלה 01</span>
             <p id="duration-question" className={styles.questionTitle}>
               כמה זמן ניסית לשנות את הגוף שלך?
             </p>
@@ -115,10 +115,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.divider} />
-
           <div className={styles.question}>
-            <span className={styles.questionNumber}>שאלה 02</span>
             <label htmlFor="reason" className={styles.questionTitle}>
               שאלה אחרונה! למה חשוב לך לעשות שינוי עכשיו?
             </label>
@@ -133,12 +130,20 @@ export default function Home() {
             />
           </div>
 
-          <div className={styles.divider} />
-
           <div className={styles.carouselSection}>
             <h2 className={styles.carouselTitle}>אנשים בתוכנית שלנו:</h2>
-            <div className={styles.carouselViewport}>
-              <div className={styles.carouselTrack}>
+            <div
+              className={styles.carouselViewport}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              onPointerDown={() => setUserStopped(true)}
+            >
+              <div
+                className={styles.carouselTrack}
+                style={{
+                  animationPlayState: carouselPaused ? "paused" : "running",
+                }}
+              >
                 {[...TEAM_MEDIA, ...TEAM_MEDIA].map((media, i) => (
                   <div key={`${media.id}-${i}`} className={styles.carouselItem}>
                     {media.type === "video" ? (
@@ -149,6 +154,8 @@ export default function Home() {
                         muted
                         loop
                         playsInline
+                        controls
+                        onPlay={() => setUserStopped(true)}
                       />
                     ) : (
                       // eslint-disable-next-line @next/next/no-img-element

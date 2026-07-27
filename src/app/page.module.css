@@ -65,12 +65,13 @@
 .textarea {
   width: 100%;
   background: var(--bg-card);
-  border: 1.5px solid rgba(201, 162, 39, 0.28);
-  border-radius: 12px;
-  padding: 14px 18px;
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-radius: 24px;
+  padding: 16px 22px;
   font-size: 16px;
   font-family: inherit;
   color: var(--text-primary);
+  text-align: center;
   transition: border-color 0.18s ease;
 }
 
@@ -89,31 +90,20 @@
   resize: vertical;
   min-height: 110px;
   line-height: 1.5;
-}
-
-.divider {
-  height: 1px;
-  background: rgba(240, 240, 240, 0.06);
+  padding-top: 18px;
 }
 
 .question {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.questionNumber {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--gold);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  gap: 20px;
 }
 
 .questionTitle {
   display: block;
   margin: 0;
-  font-size: clamp(17px, 3.5vw, 20px);
+  text-align: center;
+  font-size: clamp(19px, 4.5vw, 23px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
@@ -123,7 +113,7 @@
 .options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .optionBox {
@@ -131,16 +121,8 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--bg-card);
-  border: 1.5px solid rgba(201, 162, 39, 0.18);
-  border-radius: 12px;
-  padding: 14px 16px;
+  padding: 4px 4px;
   cursor: pointer;
-  transition: all 0.18s ease;
-}
-
-.optionBox:hover {
-  border-color: rgba(201, 162, 39, 0.4);
 }
 
 .optionBox:hover .optionText {
@@ -151,13 +133,9 @@
   border-color: var(--gold);
 }
 
-.optionBoxSelected {
-  border-color: rgba(201, 162, 39, 0.35);
-  background: rgba(201, 162, 39, 0.08);
-}
-
 .optionBoxSelected .optionText {
   color: var(--text-primary);
+  font-weight: 700;
 }
 
 .radioInput {
@@ -232,19 +210,15 @@
   display: flex;
   gap: 12px;
   width: max-content;
-  animation: scroll 24s linear infinite;
-}
-
-.carouselViewport:hover .carouselTrack {
-  animation-play-state: paused;
+  animation: scroll 40s linear infinite;
 }
 
 .carouselItem {
   position: relative;
   flex-shrink: 0;
-  width: 120px;
-  height: 150px;
-  border-radius: 12px;
+  width: calc((min(100vw, 600px) - 40px - 12px) / 2);
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
   border: 1.5px solid rgba(201, 162, 39, 0.18);
   background: linear-gradient(160deg, #1c1c1c, #262115);
   overflow: hidden;

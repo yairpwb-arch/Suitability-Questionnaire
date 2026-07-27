@@ -1,0 +1,328 @@
+.header {
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--bg-header);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.logoDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 12px rgba(240, 192, 64, 0.6);
+}
+
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px 48px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(22px, 6vw, 30px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1.5px solid rgba(201, 162, 39, 0.28);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text-primary);
+  transition: border-color 0.18s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-weak);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--gold-bright);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(240, 240, 240, 0.06);
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.questionNumber {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.questionTitle {
+  display: block;
+  margin: 0;
+  font-size: clamp(17px, 3.5vw, 20px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.4;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.optionBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1.5px solid rgba(201, 162, 39, 0.18);
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.optionBox:hover {
+  border-color: rgba(201, 162, 39, 0.4);
+}
+
+.optionBox:hover .optionText {
+  color: var(--text-primary);
+}
+
+.optionBox:hover .radioVisual {
+  border-color: var(--gold);
+}
+
+.optionBoxSelected {
+  border-color: rgba(201, 162, 39, 0.35);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.optionBoxSelected .optionText {
+  color: var(--text-primary);
+}
+
+.radioInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.radioVisual {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 162, 39, 0.35);
+  background: transparent;
+  transition: all 0.18s ease;
+}
+
+.radioInput:checked ~ .radioVisual {
+  border-color: var(--gold-bright);
+  background: var(--gold-bright);
+  box-shadow: inset 0 0 0 5px var(--bg-card);
+}
+
+.optionText {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.18s ease;
+}
+
+.carouselSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.carouselTitle {
+  margin: 0;
+  font-size: clamp(17px, 3.5vw, 20px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.carouselViewport {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.carouselTrack {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: scroll 24s linear infinite;
+}
+
+.carouselViewport:hover .carouselTrack {
+  animation-play-state: paused;
+}
+
+.carouselItem {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  height: 150px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(201, 162, 39, 0.18);
+  background: linear-gradient(160deg, #1c1c1c, #262115);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carouselItemLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-weak);
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--gold-bright);
+}
+
+.checkboxText {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 17px;
+  border: none;
+  border-radius: 100px;
+  background: var(--red);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(220, 38, 38, 0.35);
+  transition: all 0.18s ease;
+}
+
+.submitButton:hover {
+  background: var(--red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.45);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carouselTrack {
+    animation: none;
+  }
+}

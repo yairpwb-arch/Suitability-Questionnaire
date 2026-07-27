@@ -259,12 +259,6 @@
   object-fit: cover;
 }
 
-.carouselItemLabel {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-weak);
-}
-
 @keyframes scroll {
   from {
     transform: translateX(0);

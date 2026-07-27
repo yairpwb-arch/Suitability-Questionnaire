@@ -10,13 +10,21 @@ const DURATION_OPTIONS = [
   "כל החיים...",
 ];
 
-type TeamPhoto = {
+type TeamMedia = {
   id: number;
-  src?: string;
+  type: "image" | "video";
+  src: string;
 };
 
-// TODO: replace with the real photos — drop files in /public/team and set `src`.
-const TEAM_PHOTOS: TeamPhoto[] = [1, 2, 3, 4, 5, 6].map((id) => ({ id }));
+const TEAM_MEDIA: TeamMedia[] = [
+  { id: 1, type: "image", src: "/team/01.jpeg" },
+  { id: 2, type: "image", src: "/team/02.jpeg" },
+  { id: 3, type: "video", src: "/team/03.mp4" },
+  { id: 4, type: "image", src: "/team/04.jpeg" },
+  { id: 5, type: "image", src: "/team/05.jpeg" },
+  { id: 6, type: "video", src: "/team/06.mp4" },
+  { id: 7, type: "image", src: "/team/07.jpeg" },
+];
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -131,19 +139,24 @@ export default function Home() {
             <h2 className={styles.carouselTitle}>אנשים בתוכנית שלנו:</h2>
             <div className={styles.carouselViewport}>
               <div className={styles.carouselTrack}>
-                {[...TEAM_PHOTOS, ...TEAM_PHOTOS].map((photo, i) => (
-                  <div key={`${photo.id}-${i}`} className={styles.carouselItem}>
-                    {photo.src ? (
+                {[...TEAM_MEDIA, ...TEAM_MEDIA].map((media, i) => (
+                  <div key={`${media.id}-${i}`} className={styles.carouselItem}>
+                    {media.type === "video" ? (
+                      <video
+                        className={styles.carouselImage}
+                        src={media.src}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                      />
+                    ) : (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={photo.src}
+                        src={media.src}
                         alt=""
                         className={styles.carouselImage}
                       />
-                    ) : (
-                      <span className={styles.carouselItemLabel}>
-                        תמונה {photo.id}
-                      </span>
                     )}
                   </div>
                 ))}

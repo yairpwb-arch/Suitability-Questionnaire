@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import styles from "./page.module.css";
 
 const DURATION_OPTIONS = [
@@ -34,11 +34,19 @@ export default function Home() {
   const [agreed, setAgreed] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [userStopped, setUserStopped] = useState(false);
+  const [playingKeys, setPlayingKeys] = useState<Set<string>>(new Set());
+  const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
   const carouselPaused = isHovering || userStopped;
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // TODO: wire up submission (CRM / webhook / API route).
+  }
+
+  function playVideo(key: string) {
+    setUserStopped(true);
+    setPlayingKeys((prev) => new Set(prev).add(key));
+    videoRefs.current.get(key)?.play();
   }
 
   return (
@@ -144,29 +152,45 @@ export default function Home() {
                   animationPlayState: carouselPaused ? "paused" : "running",
                 }}
               >
-                {[...TEAM_MEDIA, ...TEAM_MEDIA].map((media, i) => (
-                  <div key={`${media.id}-${i}`} className={styles.carouselItem}>
-                    {media.type === "video" ? (
-                      <video
-                        className={styles.carouselImage}
-                        src={media.src}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        controls
-                        onPlay={() => setUserStopped(true)}
-                      />
-                    ) : (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={media.src}
-                        alt=""
-                        className={styles.carouselImage}
-                      />
-                    )}
-                  </div>
-                ))}
+                {[...TEAM_MEDIA, ...TEAM_MEDIA].map((media, i) => {
+                  const key = `${media.id}-${i}`;
+                  const started = playingKeys.has(key);
+                  return (
+                    <div key={key} className={styles.carouselItem}>
+                      {media.type === "video" ? (
+                        <>
+                          <video
+                            ref={(el) => {
+                              if (el) videoRefs.current.set(key, el);
+                            }}
+                            className={styles.carouselImage}
+                            src={media.src}
+                            playsInline
+                            controls={started}
+                            onPlay={() => setUserStopped(true)}
+                          />
+                          {!started && (
+                            <button
+                              type="button"
+                              className={styles.playButton}
+                              onClick={() => playVideo(key)}
+                              aria-label="נגן סרטון"
+                            >
+                              ▶
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={media.src}
+                          alt=""
+                          className={styles.carouselImage}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

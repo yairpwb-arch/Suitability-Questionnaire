@@ -40,7 +40,7 @@
 
 .title {
   margin: 0;
-  font-size: clamp(22px, 6vw, 30px);
+  font-size: clamp(28px, 8vw, 36px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
@@ -49,7 +49,7 @@
 
 .subtitle {
   margin: 0;
-  font-size: 15px;
+  font-size: clamp(17px, 4.2vw, 19px);
   font-weight: 500;
   color: var(--text-secondary);
   line-height: 1.6;
@@ -68,7 +68,7 @@
   border: 1px solid rgba(201, 162, 39, 0.14);
   border-radius: 24px;
   padding: 16px 22px;
-  font-size: 16px;
+  font-size: clamp(17px, 4.2vw, 19px);
   font-family: inherit;
   color: var(--text-primary);
   text-align: center;
@@ -103,7 +103,7 @@
   display: block;
   margin: 0;
   text-align: center;
-  font-size: clamp(19px, 4.5vw, 23px);
+  font-size: clamp(23px, 6.2vw, 27px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
@@ -152,8 +152,8 @@
 
 .radioVisual {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 2px solid rgba(201, 162, 39, 0.35);
   background: transparent;
@@ -163,11 +163,11 @@
 .radioInput:checked ~ .radioVisual {
   border-color: var(--gold-bright);
   background: var(--gold-bright);
-  box-shadow: inset 0 0 0 5px var(--bg-card);
+  box-shadow: inset 0 0 0 6px var(--bg-card);
 }
 
 .optionText {
-  font-size: 15px;
+  font-size: clamp(17px, 4.4vw, 19px);
   font-weight: 500;
   color: var(--text-secondary);
   transition: color 0.18s ease;
@@ -181,7 +181,7 @@
 
 .carouselTitle {
   margin: 0;
-  font-size: clamp(17px, 3.5vw, 20px);
+  font-size: clamp(20px, 5vw, 23px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
@@ -282,7 +282,7 @@
 }
 
 .checkboxText {
-  font-size: 13px;
+  font-size: clamp(15px, 3.8vw, 17px);
   font-weight: 500;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -295,7 +295,7 @@
   border-radius: 100px;
   background: var(--red);
   color: #fff;
-  font-size: 18px;
+  font-size: clamp(19px, 5vw, 21px);
   font-weight: 800;
   font-family: inherit;
   cursor: pointer;

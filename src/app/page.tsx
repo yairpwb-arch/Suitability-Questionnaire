@@ -59,7 +59,9 @@ export default function Home() {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.hero}>
             <h1 className={styles.title}>
-              לשיחת התאמה לתוכנית <span aria-hidden>👇</span>
+              לשיחת התאמה לתוכנית
+              <br />
+              וקבלת ההטבה! <span aria-hidden>👇</span>
             </h1>
             <p className={styles.subtitle}>
               הטופס מיועד לגברים ונשים שרוצים להיפטר אחת ולתמיד מהשומן העודף
@@ -138,6 +140,24 @@ export default function Home() {
             />
           </div>
 
+          <label className={styles.checkboxRow}>
+            <input
+              className={styles.checkboxInput}
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              required
+            />
+            <span className={styles.checkboxText}>
+              אני מבין/ה שהתוכנית בתשלום וההטבה היא התחייבות לתוצאות או החזר
+              כספי מלא
+            </span>
+          </label>
+
+          <button type="submit" className={styles.submitButton}>
+            אני רוצה שיחזרו אלי!
+          </button>
+
           <div className={styles.carouselSection}>
             <h2 className={styles.carouselTitle}>אנשים בתוכנית שלנו:</h2>
             <div
@@ -194,24 +214,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          <label className={styles.checkboxRow}>
-            <input
-              className={styles.checkboxInput}
-              type="checkbox"
-              checked={agreed}
-              onChange={(e) => setAgreed(e.target.checked)}
-              required
-            />
-            <span className={styles.checkboxText}>
-              אני מבין/ה שהליווי בתשלום וההטבה היא חודש נוסף בתוכנית בהתאם
-              למסלול שאבחר
-            </span>
-          </label>
-
-          <button type="submit" className={styles.submitButton}>
-            אני רוצה שיחזרו אלי!
-          </button>
         </form>
       </main>
     </>

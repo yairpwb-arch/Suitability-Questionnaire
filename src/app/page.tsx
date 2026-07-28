@@ -34,9 +34,11 @@ export default function Home() {
   const [agreed, setAgreed] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [userStopped, setUserStopped] = useState(false);
+  const [tempPaused, setTempPaused] = useState(false);
+  const tempPauseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [playingKeys, setPlayingKeys] = useState<Set<string>>(new Set());
   const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
-  const carouselPaused = isHovering || userStopped;
+  const carouselPaused = isHovering || userStopped || tempPaused;
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
@@ -61,6 +63,12 @@ export default function Home() {
     setUserStopped(true);
     setPlayingKeys((prev) => new Set(prev).add(key));
     videoRefs.current.get(key)?.play();
+  }
+
+  function pauseCarouselBriefly() {
+    setTempPaused(true);
+    if (tempPauseTimeout.current) clearTimeout(tempPauseTimeout.current);
+    tempPauseTimeout.current = setTimeout(() => setTempPaused(false), 3000);
   }
 
   return (
@@ -193,7 +201,6 @@ export default function Home() {
               className={styles.carouselViewport}
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
-              onPointerDown={() => setUserStopped(true)}
             >
               <div
                 className={styles.carouselTrack}
@@ -235,6 +242,7 @@ export default function Home() {
                           src={media.src}
                           alt=""
                           className={styles.carouselImage}
+                          onClick={pauseCarouselBriefly}
                         />
                       )}
                     </div>

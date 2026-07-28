@@ -107,7 +107,7 @@ export default function Home() {
               className={styles.input}
               type="tel"
               name="phone"
-              placeholder="0547588909"
+              placeholder="מספר טלפון"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               autoComplete="tel"

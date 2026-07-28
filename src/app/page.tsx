@@ -37,10 +37,24 @@ export default function Home() {
   const [playingKeys, setPlayingKeys] = useState<Set<string>>(new Set());
   const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
   const carouselPaused = isHovering || userStopped;
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
+    "idle"
+  );
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: wire up submission (CRM / webhook / API route).
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, duration, reason }),
+      });
+      if (!res.ok) throw new Error("submit failed");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   }
 
   function playVideo(key: string) {
@@ -154,9 +168,24 @@ export default function Home() {
             </span>
           </label>
 
-          <button type="submit" className={styles.submitButton}>
-            אני רוצה שיחזרו אלי!
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={status === "submitting"}
+          >
+            {status === "submitting" ? "שולח..." : "אני רוצה שיחזרו אלי!"}
           </button>
+
+          {status === "success" && (
+            <p className={styles.formStatusSuccess}>
+              תודה! קיבלנו את הפרטים ונחזור אליך בקרוב.
+            </p>
+          )}
+          {status === "error" && (
+            <p className={styles.formStatusError}>
+              משהו השתבש בשליחה, נסה/י שוב או צור/י קשר ישירות.
+            </p>
+          )}
 
           <div className={styles.carouselSection}>
             <h2 className={styles.carouselTitle}>אנשים בתוכנית שלנו:</h2>

@@ -321,6 +321,29 @@
   transform: translateY(0);
 }
 
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.formStatusSuccess,
+.formStatusError {
+  margin: -8px 0 0;
+  text-align: center;
+  font-size: clamp(15px, 3.8vw, 17px);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.formStatusSuccess {
+  color: var(--gold-bright);
+}
+
+.formStatusError {
+  color: var(--red);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .carouselTrack {
     animation: none;

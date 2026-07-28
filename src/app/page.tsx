@@ -33,12 +33,12 @@ export default function Home() {
   const [reason, setReason] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [userStopped, setUserStopped] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const [tempPaused, setTempPaused] = useState(false);
   const tempPauseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [playingKeys, setPlayingKeys] = useState<Set<string>>(new Set());
   const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
-  const carouselPaused = isHovering || userStopped || tempPaused;
+  const carouselPaused = isHovering || videoPlaying || tempPaused;
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
@@ -60,7 +60,6 @@ export default function Home() {
   }
 
   function playVideo(key: string) {
-    setUserStopped(true);
     setPlayingKeys((prev) => new Set(prev).add(key));
     videoRefs.current.get(key)?.play();
   }
@@ -71,10 +70,18 @@ export default function Home() {
     tempPauseTimeout.current = setTimeout(() => setTempPaused(false), 3000);
   }
 
+  function handleVideoStopped() {
+    setVideoPlaying(false);
+    pauseCarouselBriefly();
+  }
+
   return (
     <>
       <header className={styles.header}>
-        <span className={styles.logoDot} aria-hidden />
+        <span className={styles.logo}>
+          היאירים <span className={styles.logoDivider}>|</span> חטוב בלי
+          תפריט
+        </span>
       </header>
 
       <main className={styles.page}>
@@ -111,6 +118,9 @@ export default function Home() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               autoComplete="tel"
+              inputMode="numeric"
+              pattern="0\d{1,2}[\s-]?\d{7}"
+              title="מספר טלפון ישראלי תקין, לדוגמה: 0501234567"
               required
             />
           </div>
@@ -223,7 +233,9 @@ export default function Home() {
                             src={media.src}
                             playsInline
                             controls={started}
-                            onPlay={() => setUserStopped(true)}
+                            onPlay={() => setVideoPlaying(true)}
+                            onPause={handleVideoStopped}
+                            onEnded={handleVideoStopped}
                           />
                           {!started && (
                             <button

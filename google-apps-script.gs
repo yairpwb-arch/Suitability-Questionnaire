@@ -1,5 +1,8 @@
 // Google Apps Script — paste this into Extensions > Apps Script on the
-// Google Sheet that should collect leads, then deploy as a Web App:
+// LEADS Google Sheet (the one with columns: שם ליד, מספר טלפון, תאריך
+// יצירה, מקור הגעה, סטטוס, תאריך פולואו/חזרה הבאה, סכום סגירה, תאריך
+// סגירה, הערות להמשך, סיבת אי סגירה), on the FIRST sheet/tab.
+// Then deploy as a Web App:
 //   Deploy > New deployment > Type: Web app
 //   Execute as: Me
 //   Who has access: Anyone
@@ -7,25 +10,25 @@
 // GOOGLE_SHEETS_WEBHOOK_URL environment variable.
 
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   var data = JSON.parse(e.postData.contents);
 
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow([
-      "תאריך",
-      "שם",
-      "טלפון",
-      "כמה זמן ניסית לשנות",
-      "למה חשוב לך עכשיו",
-    ]);
-  }
+  var notes =
+    "כמה זמן מנסה להתחיל תהליך: " + (data.duration || "-") +
+    "\n" +
+    "הערה: " + (data.reason || "-");
 
   sheet.appendRow([
-    new Date(),
-    data.name || "",
-    data.phone || "",
-    data.duration || "",
-    data.reason || "",
+    data.name || "",           // שם ליד
+    data.phone || "",          // מספר טלפון
+    new Date(),                // תאריך יצירה
+    "מודעה ישירה",             // מקור הגעה
+    "חדש",                     // סטטוס
+    "",                        // תאריך פולואו/חזרה הבאה
+    "",                        // סכום סגירה
+    "",                        // תאריך סגירה
+    notes,                     // הערות להמשך
+    "",                        // סיבת אי סגירה
   ]);
 
   return ContentService.createTextOutput(

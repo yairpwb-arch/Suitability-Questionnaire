@@ -23,7 +23,7 @@ const TEAM_MEDIA: TeamMedia[] = [
   { id: 4, type: "image", src: "/team/04.jpeg" },
   { id: 5, type: "image", src: "/team/05.jpeg" },
   { id: 6, type: "video", src: "/team/06.mp4" },
-  { id: 7, type: "image", src: "/team/07.jpeg" },
+  { id: 7, type: "image", src: "/team/07.jpg" },
 ];
 
 export default function Home() {
@@ -45,6 +45,11 @@ export default function Home() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     setStatus("submitting");
     try {
       const res = await fetch("/api/submit-lead", {
@@ -119,7 +124,7 @@ export default function Home() {
               onChange={(e) => setPhone(e.target.value)}
               autoComplete="tel"
               inputMode="numeric"
-              pattern="0\d{1,2}[\s-]?\d{7}"
+              pattern="0\d{1,2}[\s\-]?\d{7}"
               title="מספר טלפון ישראלי תקין, לדוגמה: 0501234567"
               required
             />

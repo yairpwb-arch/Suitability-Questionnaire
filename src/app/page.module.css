@@ -84,7 +84,6 @@
   flex-direction: column;
   gap: clamp(4px, 0.6vh, 6px);
   text-align: center;
-  margin-bottom: auto;
 }
 
 .title {
@@ -248,6 +247,7 @@
 
 .submitButton {
   width: 100%;
+  margin-top: auto;
   padding: clamp(12px, 1.4vh, 15px);
   border: none;
   border-radius: 100px;

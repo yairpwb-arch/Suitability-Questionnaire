@@ -84,6 +84,7 @@
   flex-direction: column;
   gap: clamp(4px, 0.6vh, 6px);
   text-align: center;
+  margin-bottom: clamp(16px, 3vh, 28px);
 }
 
 .title {

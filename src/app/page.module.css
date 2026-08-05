@@ -19,7 +19,7 @@
   position: absolute;
   inset: -14px;
   z-index: 0;
-  border-radius: 34px;
+  border-radius: 38px;
   background: var(--orange);
   box-shadow: 0 16px 40px rgba(217, 119, 6, 0.25);
 }

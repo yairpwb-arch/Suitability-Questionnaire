@@ -1,5 +1,5 @@
 .header {
-  height: 60px;
+  height: 34px;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -29,110 +29,100 @@
   width: 100%;
   min-width: 0;
   margin: 0 auto;
-  padding: 40px 20px 48px;
+  padding: 10px 16px 16px;
   box-sizing: border-box;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 7px;
   min-width: 0;
 }
 
 .hero {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 2px;
   text-align: center;
 }
 
 .title {
   margin: 0;
-  font-size: clamp(28px, 8vw, 36px);
+  font-size: clamp(20px, 6vw, 24px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .subtitle {
   margin: 0;
-  font-size: clamp(17px, 4.2vw, 19px);
+  font-size: clamp(13px, 3.2vw, 14px);
   font-weight: 500;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.35;
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
 }
 
-.input,
-.textarea {
+.input {
   width: 100%;
   background: var(--bg-card);
   border: 1px solid rgba(201, 162, 39, 0.14);
-  border-radius: 24px;
-  padding: 16px 22px;
-  font-size: clamp(17px, 4.2vw, 19px);
+  border-radius: 16px;
+  padding: 7px 14px;
+  font-size: clamp(13px, 3.4vw, 14px);
   font-family: inherit;
   color: var(--text-primary);
   text-align: center;
   transition: border-color 0.18s ease;
 }
 
-.input::placeholder,
-.textarea::placeholder {
+.input::placeholder {
   color: var(--text-weak);
 }
 
-.input:focus,
-.textarea:focus {
+.input:focus {
   outline: none;
   border-color: var(--gold-bright);
-}
-
-.textarea {
-  resize: vertical;
-  min-height: 110px;
-  line-height: 1.5;
-  padding-top: 18px;
 }
 
 .question {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 6px;
 }
 
 .questionTitle {
   display: block;
   margin: 0;
   text-align: center;
-  font-size: clamp(23px, 6.2vw, 27px);
+  font-size: clamp(14px, 4vw, 16px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
-  line-height: 1.4;
+  line-height: 1.25;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 }
 
 .optionBox {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 16px;
+  gap: 10px;
+  padding: 5px 12px;
   border: 1.5px solid rgba(201, 162, 39, 0.3);
-  border-radius: 14px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.18s ease;
 }
@@ -173,8 +163,8 @@
 
 .radioVisual {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 2px solid rgba(201, 162, 39, 0.35);
   background: transparent;
@@ -184,111 +174,14 @@
 .radioInput:checked ~ .radioVisual {
   border-color: var(--gold-bright);
   background: var(--gold-bright);
-  box-shadow: inset 0 0 0 6px var(--bg-card);
+  box-shadow: inset 0 0 0 4px var(--bg-card);
 }
 
 .optionText {
-  font-size: clamp(17px, 4.4vw, 19px);
+  font-size: clamp(14px, 3.6vw, 15px);
   font-weight: 500;
   color: var(--text-secondary);
   transition: color 0.18s ease;
-}
-
-.carouselSection {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 0;
-}
-
-.carouselTitle {
-  margin: 0;
-  font-size: clamp(20px, 5vw, 23px);
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.3px;
-}
-
-.carouselViewport {
-  direction: ltr;
-  overflow: hidden;
-  width: 100%;
-  min-width: 0;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
-}
-
-.carouselTrack {
-  display: flex;
-  direction: ltr;
-  gap: 12px;
-  width: max-content;
-  animation: scroll 40s linear infinite;
-}
-
-.carouselItem {
-  position: relative;
-  flex-shrink: 0;
-  width: calc((min(100vw, 600px) - 40px - 12px) / 2);
-  aspect-ratio: 3 / 4;
-  border-radius: 16px;
-  border: 1.5px solid rgba(201, 162, 39, 0.18);
-  background: linear-gradient(160deg, #1c1c1c, #262115);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carouselImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.playButton {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 1.5px solid rgba(240, 192, 64, 0.6);
-  background: rgba(13, 13, 13, 0.55);
-  color: var(--gold-bright);
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.18s ease;
-}
-
-.playButton:hover {
-  background: rgba(13, 13, 13, 0.75);
-  border-color: var(--gold-bright);
-}
-
-@keyframes scroll {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
 }
 
 .checkboxRow {
@@ -307,20 +200,20 @@
 }
 
 .checkboxText {
-  font-size: clamp(15px, 3.8vw, 17px);
+  font-size: clamp(12px, 3.2vw, 13px);
   font-weight: 500;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.35;
 }
 
 .submitButton {
   width: 100%;
-  padding: 17px;
+  padding: 13px;
   border: none;
   border-radius: 100px;
   background: var(--red);
   color: #fff;
-  font-size: clamp(19px, 5vw, 21px);
+  font-size: clamp(16px, 4.4vw, 18px);
   font-weight: 800;
   font-family: inherit;
   cursor: pointer;
@@ -359,10 +252,4 @@
 
 .formStatusError {
   color: var(--red);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .carouselTrack {
-    animation: none;
-  }
 }

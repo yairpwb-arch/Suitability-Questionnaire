@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import styles from "./page.module.css";
 
 const DURATION_OPTIONS = [
@@ -10,35 +10,19 @@ const DURATION_OPTIONS = [
   "כל החיים...",
 ];
 
-type TeamMedia = {
-  id: number;
-  type: "image" | "video";
-  src: string;
-};
-
-const TEAM_MEDIA: TeamMedia[] = [
-  { id: 1, type: "image", src: "/team/01.jpeg" },
-  { id: 2, type: "image", src: "/team/02.jpeg" },
-  { id: 3, type: "video", src: "/team/03.mp4" },
-  { id: 4, type: "image", src: "/team/04.jpeg" },
-  { id: 5, type: "image", src: "/team/05.jpeg" },
-  { id: 6, type: "video", src: "/team/06.mp4" },
-  { id: 7, type: "image", src: "/team/07.jpg" },
+const REASON_OPTIONS = [
+  "רוצה להרגיש טוב עם עצמי במראה",
+  "אני דואג לבריאות שלי",
+  "המשקל מקשה עלי ביום יום",
+  "כל התשובות נכונות",
 ];
 
 export default function Home() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [duration, setDuration] = useState<string | null>(null);
-  const [reason, setReason] = useState("");
+  const [reason, setReason] = useState<string | null>(null);
   const [agreed, setAgreed] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [videoPlaying, setVideoPlaying] = useState(false);
-  const [tempPaused, setTempPaused] = useState(false);
-  const tempPauseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [playingKeys, setPlayingKeys] = useState<Set<string>>(new Set());
-  const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
-  const carouselPaused = isHovering || videoPlaying || tempPaused;
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
   );
@@ -64,22 +48,6 @@ export default function Home() {
     }
   }
 
-  function playVideo(key: string) {
-    setPlayingKeys((prev) => new Set(prev).add(key));
-    videoRefs.current.get(key)?.play();
-  }
-
-  function pauseCarouselBriefly() {
-    setTempPaused(true);
-    if (tempPauseTimeout.current) clearTimeout(tempPauseTimeout.current);
-    tempPauseTimeout.current = setTimeout(() => setTempPaused(false), 3000);
-  }
-
-  function handleVideoStopped() {
-    setVideoPlaying(false);
-    pauseCarouselBriefly();
-  }
-
   return (
     <>
       <header className={styles.header}>
@@ -93,14 +61,13 @@ export default function Home() {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.hero}>
             <h1 className={styles.title}>
-              לשיחת התאמה לתוכנית
+              לקביעת שיחת התאמה לתוכנית
               <br />
-              וקבלת ההטבה! <span aria-hidden>👇</span>
+              וקבלת ההתחייבות! <span aria-hidden>👇</span>
             </h1>
             <p className={styles.subtitle}>
-              הטופס מיועד לגברים ונשים שרוצים להיפטר אחת ולתמיד מהשומן העודף
-              בבטן באמצעות שינוי הרגלי אכילה. בלי תפריט ובלי מלחמות עם
-              עצמכם.
+              הטופס מיועד לגברים ונשים ששנמאס להם מתפריטים ורוצים לשמוע על
+              תוכנית הליווי שלנו.
             </p>
           </div>
 
@@ -162,19 +129,36 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.question}>
-            <label htmlFor="reason" className={styles.questionTitle}>
+          <div
+            className={styles.question}
+            role="radiogroup"
+            aria-labelledby="reason-question"
+          >
+            <p id="reason-question" className={styles.questionTitle}>
               שאלה אחרונה! למה חשוב לך לעשות שינוי עכשיו?
-            </label>
-            <textarea
-              id="reason"
-              className={styles.textarea}
-              placeholder="פרט..."
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              rows={4}
-              required
-            />
+            </p>
+            <div className={styles.options}>
+              {REASON_OPTIONS.map((option) => (
+                <label
+                  key={option}
+                  className={`${styles.optionBox} ${
+                    reason === option ? styles.optionBoxSelected : ""
+                  }`}
+                >
+                  <input
+                    className={styles.radioInput}
+                    type="radio"
+                    name="reason"
+                    value={option}
+                    checked={reason === option}
+                    onChange={() => setReason(option)}
+                    required
+                  />
+                  <span className={styles.radioVisual} aria-hidden />
+                  <span className={styles.optionText}>{option}</span>
+                </label>
+              ))}
+            </div>
           </div>
 
           <label className={styles.checkboxRow}>
@@ -209,65 +193,6 @@ export default function Home() {
               משהו השתבש בשליחה, נסה/י שוב או צור/י קשר ישירות.
             </p>
           )}
-
-          <div className={styles.carouselSection}>
-            <h2 className={styles.carouselTitle}>אנשים בתוכנית שלנו:</h2>
-            <div
-              className={styles.carouselViewport}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-            >
-              <div
-                className={styles.carouselTrack}
-                style={{
-                  animationPlayState: carouselPaused ? "paused" : "running",
-                }}
-              >
-                {[...TEAM_MEDIA, ...TEAM_MEDIA].map((media, i) => {
-                  const key = `${media.id}-${i}`;
-                  const started = playingKeys.has(key);
-                  return (
-                    <div key={key} className={styles.carouselItem}>
-                      {media.type === "video" ? (
-                        <>
-                          <video
-                            ref={(el) => {
-                              if (el) videoRefs.current.set(key, el);
-                            }}
-                            className={styles.carouselImage}
-                            src={media.src}
-                            playsInline
-                            controls={started}
-                            onPlay={() => setVideoPlaying(true)}
-                            onPause={handleVideoStopped}
-                            onEnded={handleVideoStopped}
-                          />
-                          {!started && (
-                            <button
-                              type="button"
-                              className={styles.playButton}
-                              onClick={() => playVideo(key)}
-                              aria-label="נגן סרטון"
-                            >
-                              ▶
-                            </button>
-                          )}
-                        </>
-                      ) : (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={media.src}
-                          alt=""
-                          className={styles.carouselImage}
-                          onClick={pauseCarouselBriefly}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
         </form>
       </main>
     </>

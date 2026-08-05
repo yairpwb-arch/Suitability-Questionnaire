@@ -29,21 +29,26 @@
   width: 100%;
   min-width: 0;
   margin: 0 auto;
-  padding: 10px 16px 16px;
+  padding: clamp(10px, 1.4vh, 16px) 20px clamp(12px, 1.8vh, 18px);
   box-sizing: border-box;
+  min-height: calc(100vh - 34px);
+  min-height: calc(100dvh - 34px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: clamp(10px, 1.4vh, 16px);
   min-width: 0;
 }
 
 .hero {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: clamp(4px, 0.6vh, 6px);
   text-align: center;
 }
 
@@ -53,30 +58,30 @@
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .subtitle {
   margin: 0;
-  font-size: clamp(13px, 3.2vw, 14px);
+  font-size: clamp(13px, 3.4vw, 14px);
   font-weight: 500;
   color: var(--text-secondary);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: clamp(6px, 1vh, 9px);
 }
 
 .input {
   width: 100%;
   background: var(--bg-card);
   border: 1px solid rgba(201, 162, 39, 0.14);
-  border-radius: 16px;
-  padding: 7px 14px;
-  font-size: clamp(13px, 3.4vw, 14px);
+  border-radius: 18px;
+  padding: clamp(8px, 1.1vh, 11px) 18px;
+  font-size: clamp(13px, 3.6vw, 14px);
   font-family: inherit;
   color: var(--text-primary);
   text-align: center;
@@ -95,34 +100,34 @@
 .question {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: clamp(6px, 1vh, 10px);
 }
 
 .questionTitle {
   display: block;
   margin: 0;
   text-align: center;
-  font-size: clamp(14px, 4vw, 16px);
+  font-size: clamp(15px, 4.2vw, 16px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.3px;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: clamp(5px, 0.8vh, 7px);
 }
 
 .optionBox {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 5px 12px;
+  gap: 12px;
+  padding: clamp(6px, 1vh, 9px) 16px;
   border: 1.5px solid rgba(201, 162, 39, 0.3);
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.18s ease;
 }
@@ -163,8 +168,8 @@
 
 .radioVisual {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
   border: 2px solid rgba(201, 162, 39, 0.35);
   background: transparent;
@@ -178,7 +183,7 @@
 }
 
 .optionText {
-  font-size: clamp(14px, 3.6vw, 15px);
+  font-size: clamp(14px, 3.8vw, 15px);
   font-weight: 500;
   color: var(--text-secondary);
   transition: color 0.18s ease;
@@ -200,20 +205,20 @@
 }
 
 .checkboxText {
-  font-size: clamp(12px, 3.2vw, 13px);
+  font-size: clamp(13px, 3.4vw, 14px);
   font-weight: 500;
   color: var(--text-secondary);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .submitButton {
   width: 100%;
-  padding: 13px;
+  padding: clamp(12px, 1.4vh, 15px);
   border: none;
   border-radius: 100px;
   background: var(--red);
   color: #fff;
-  font-size: clamp(16px, 4.4vw, 18px);
+  font-size: clamp(16px, 4.4vw, 17px);
   font-weight: 800;
   font-family: inherit;
   cursor: pointer;

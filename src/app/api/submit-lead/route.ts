@@ -1,5 +1,9 @@
 import { NextResponse, after } from "next/server";
 import { getMetaRequestContext, sendMetaLead } from "./meta-capi";
+import { getAttribution } from "./utm";
+
+// Which questionnaire this lead came from (written to the sheet as its own column).
+const SITE_NAME = "ראשי";
 
 // Give the background work (Apps Script + retries) enough time to finish.
 export const maxDuration = 60;
@@ -44,7 +48,7 @@ export async function POST(request: Request) {
   after(() =>
     Promise.all([
       sendMetaLead(metaCtx, { name: body.name, phone: body.phone, eventId, eventTime }),
-      sendToSheet(webhookUrl, body),
+      sendToSheet(webhookUrl, { ...body, site: SITE_NAME, ...getAttribution(pageUrl) }),
     ])
   );
 

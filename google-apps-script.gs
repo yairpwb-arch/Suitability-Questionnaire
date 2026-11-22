@@ -2,8 +2,9 @@
 // the existing sendDailyLeadsReport() and onEdit() functions (don't
 // replace them, just paste this alongside). It writes into the
 // "לידים חטוב בלי תפריט" sheet/tab — same one onEdit() targets — with
-// columns: שם ליד, מספר טלפון, תאריך יצירה, מקור הגעה, סטטוס, תאריך
-// פולואו/חזרה הבאה, סכום סגירה, תאריך סגירה, הערות להמשך, סיבת אי סגירה.
+// columns A–K as in the sheet (שם מלא … סיסטם שיחות), then L–P:
+// אתר, מזהה קמפיין, מזהה ערכה, מזהה מודעה, מקור UTM.
+// Add those five headers in row 5 (L5:P5) before deploying this version.
 // Then deploy as a Web App:
 //   Deploy > New deployment > Type: Web app
 //   Execute as: Me
@@ -50,8 +51,16 @@ function writeLead_(e) {
     "",                        // תאריך פולואו/חזרה הבאה
     "",                        // סכום סגירה
     "",                        // תאריך סגירה
-    notes,                     // הערות להמשך
-    "",                        // סיבת אי סגירה
+    notes,                     // I: הערות
+    "",                        // J: הערות אישיות
+    "",                        // K: סיסטם שיחות
+    // L–P: מאיפה הגיע הליד. Meta ממלאת את המזהים בכל קליק על מודעה.
+    // ליד בלי מזהים = לא הגיע ממודעה עם פרמטרים (מודעה ישנה, ביו, קישור ישיר).
+    data.site || "",           // L: אתר (ראשי / בלי התחייבות)
+    data.utm_campaign || "",   // M: מזהה קמפיין
+    data.utm_term || "",       // N: מזהה ערכה
+    data.utm_content || "",    // O: מזהה מודעה
+    [data.utm_source, data.utm_medium].filter(Boolean).join(" / "), // P: מקור UTM
   ]);
 
   return ContentService.createTextOutput(
